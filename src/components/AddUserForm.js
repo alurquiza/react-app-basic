@@ -1,4 +1,5 @@
 import React from "react";
+import { Form, Button, Col } from 'react-bootstrap';
 
 export default function AddUserForm(props) {
   const {addUser} = props;
@@ -14,36 +15,56 @@ export default function AddUserForm(props) {
   };
 
   return (
-    <form onSubmit={e => handleSubmit(e)}>
-      <label>
-        Name:
-        <input type="text" name="name" required />
-      </label>
-      <br />
-      <label>
-        Email:
-        <input type="email" name="email" required />
-      </label>
-      <br />
-      <label>
-        Gender:
-        <select name="gender" required>
-          <option value="">Select</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-      </label>
-      <br />
-      <label>
-        Status:
-        <select name="status" required>
-          <option value="">Select</option>
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
-      </label>
-      <br />
-      <button type="submit">Submit</button>
-    </form>
+    <Col className="mb-4 d-flex justify-content-center">
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            name="name"
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formEmail">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            name="email"
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formGender">
+          <Form.Label>Gender</Form.Label>
+          <Form.Control
+            as="select"
+            name="gender"
+            required
+          >
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </Form.Control>
+        </Form.Group>
+
+        <Form.Group className="mb-2" controlId="formStatus">
+          <Form.Label>Status</Form.Label>
+          <Form.Control
+            as="select"
+            name="status"
+            required
+          >
+            <option value="">Select</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </Form.Control>
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </Col>
   );
 }

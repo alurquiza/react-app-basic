@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import { Button, ListGroup } from 'react-bootstrap';
 
 import { getPosts } from "../apiService";
 
@@ -7,8 +8,6 @@ const Posts = () => {
   const {userid : userId} = useParams();
   const [message,setMessage] = useState("Loading Posts");
   const [posts, setPosts] = useState([]);
-
-  console.log(posts,userId);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -27,17 +26,24 @@ const Posts = () => {
 
 
   return (
-    <ul>
-      {message === ""
-        ? posts.map(post => {
-          return (
-            <li key={post.id}>
-              {post.name}, {post.body}
-            </li>)
-        })
-        : message
-      }
-    </ul>
+    <div className="mx-4 mt-4">
+      <Link to="/">
+        <Button variant="outline-primary">Back</Button>
+      </Link>
+      <h3 className="mt-2">Posts:</h3>
+      <ListGroup className="mt-2">
+        {message === ""
+          ? posts.map(post => (
+            <ListGroup.Item key={post.id}>
+              <div className="d-flex flex-column">
+                <div>{post.name}</div>
+                <div className="mt-2">{post.body}</div>
+              </div>
+            </ListGroup.Item>
+          ))
+          : <ListGroup.Item>{message}</ListGroup.Item>}
+      </ListGroup>
+    </div>
   )
 }
 

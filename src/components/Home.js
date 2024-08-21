@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
+import { Button, ListGroup, ListGroupItem, Modal } from 'react-bootstrap';
 
 import { getUsers, createUser, deleteUser } from "../apiService";
-
 import AddUserForm from "./AddUserForm";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
   const [isActiveAddUserForm, setIsActiveAddUserForm] = useState(false);
+  const [newUserCreated, setNewUserInfo] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +24,10 @@ const Home = () => {
   const addUser = async (newUser) => {
     const newUserWithId = await createUser(newUser);
     setUsers([...users, newUserWithId]);
+    setNewUserInfo(true);
+
+    // setNewUserInfo(newUserWithId);
+    // handleShow();
   }
 
   const removeUser = async (userId) => {
@@ -32,22 +37,34 @@ const Home = () => {
   }
 
   return (
-    <div>
-      <ul>
-        {users.map(user => {
-          return (
-            <li key={user.id}>
+    <div className="mx-4">
+      <h3 className="mt-2">Users:</h3>
+      {users.length === 0 ? (
+        <ListGroupItem>Loading users...</ListGroupItem>
+      ) : (
+      <ListGroup>
+        {users.map((user) => (
+          <ListGroupItem key={user.id}>
+            <div className="d-flex justify-content-between align-items-center">
               <Link to={`/posts/${user.id}`}>
                 {user.name}
               </Link>
-              <button onClick={() => removeUser(user.id)}>Delete</button>
-            </li>
-          )
-        })}
-      </ul>
-      <button onClick={() => setIsActiveAddUserForm(!isActiveAddUserForm)}>Add</button>
+              <Button variant="danger" onClick={() => removeUser(user.id)}>
+                Delete
+              </Button>
+            </div>
+          </ListGroupItem>
+        ))}
+      </ListGroup>)}
+      <div className="mt-3 d-flex justify-content-center">
+        <Button
+          onClick={() => setIsActiveAddUserForm(!isActiveAddUserForm)}
+        >
+          Add User
+        </Button>
+      </div>
 
-      {isActiveAddUserForm && <AddUserForm addUser={addUser}/>}
+      {isActiveAddUserForm && <AddUserForm addUser={addUser} />}
     </div>
   )
 }

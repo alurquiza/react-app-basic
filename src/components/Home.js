@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import { Button, ListGroup, ListGroupItem, Modal } from 'react-bootstrap';
+import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 import { getUsers, createUser, deleteUser } from "../apiService";
 import AddUserForm from "./AddUserForm";
+import ModalNewUser from "./Modal";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
   const [isActiveAddUserForm, setIsActiveAddUserForm] = useState(false);
-  const [newUserCreated, setNewUserInfo] = useState(false);
+  const [newUserCreated, setNewUserCreated] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,14 +25,16 @@ const Home = () => {
   const addUser = async (newUser) => {
     const newUserWithId = await createUser(newUser);
     setUsers([...users, newUserWithId]);
-    setNewUserInfo(true);
+
+    setNewUserCreated(true);
+    setTimeout(() => setNewUserCreated(false), 5000);
 
     // setNewUserInfo(newUserWithId);
     // handleShow();
   }
 
   const removeUser = async (userId) => {
-    const response = await deleteUser(userId);
+    await deleteUser(userId);
     const newUsers = users.filter(user => user.id !== userId);
     setUsers(newUsers);
   }
@@ -65,6 +68,13 @@ const Home = () => {
       </div>
 
       {isActiveAddUserForm && <AddUserForm addUser={addUser} />}
+
+      {newUserCreated
+        && <ModalNewUser
+          show={newUserCreated}
+          setShow={setNewUserCreated}
+          newUserInfo={users[users.length - 1]}
+        />}
     </div>
   )
 }

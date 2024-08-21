@@ -34,9 +34,11 @@ const Home = () => {
   }
 
   const removeUser = async (userId) => {
-    await deleteUser(userId);
-    const newUsers = users.filter(user => user.id !== userId);
-    setUsers(newUsers);
+    if(window.confirm(`Are you sure you want to delete this user?`)){
+      await deleteUser(userId);
+      const newUsers = users.filter(user => user.id !== userId);
+      setUsers(newUsers);
+    }
   }
 
   return (

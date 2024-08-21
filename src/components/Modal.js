@@ -6,8 +6,6 @@ const ModalNewUser = ({show, setShow,  newUserInfo }) => {
 
   const handleClose = () => {setShow(false)};
 
-	console.log(newUserInfo);
-
 	return (
 		<>
 			<Modal show={show} onHide={handleClose}>

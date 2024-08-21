@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {Modal,Button} from 'react-bootstrap';
 
 const ModalNewUser = ({show, setShow,  newUserInfo }) => {
-	// const [show, setShow] = useState(showModal);
 
   const handleClose = () => {setShow(false)};
 

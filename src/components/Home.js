@@ -10,17 +10,18 @@ const Home = () => {
   const [users, setUsers] = useState([]);
   const [isActiveAddUserForm, setIsActiveAddUserForm] = useState(false);
   const [newUserCreated, setNewUserCreated] = useState(false);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
-      const newUsers = await getUsers();
+      const newUsers = await getUsers({page});
 
       if(newUsers)
         setUsers(newUsers);
     }
 
     fetchData();
-  }, [])
+  }, [page])
 
   const addUser = async (newUser) => {
     const newUserWithId = await createUser(newUser);
@@ -43,7 +44,7 @@ const Home = () => {
 
   return (
     <div className="mx-4">
-      <h3 className="mt-2">Users:</h3>
+      <h3 className="mt-2">Users: page {page}</h3>
       {users.length === 0 ? (
         <ListGroupItem>Loading users...</ListGroupItem>
       ) : (
@@ -61,8 +62,28 @@ const Home = () => {
           </ListGroupItem>
         ))}
       </ListGroup>)}
-      <div className="mt-3 d-flex justify-content-center">
+
+      <div className="mt-3 d-flex justify-content-between">
+        <Button disabled={page === 1}
+          onClick={() => {
+            const newPage = users.length > 0 ? Math.max(1, page - 1) : page;
+            setPage(newPage);
+          }}
+        >
+          Prev Page
+        </Button>
         <Button
+          onClick={() => {
+            const newPage = users.length > 0 ? page + 1 : page;
+            setPage(newPage);
+          }}
+        >
+          Next Page
+        </Button>
+      </div>
+
+      <div className="my-3 d-flex justify-content-center">
+        <Button className="btn-info"
           onClick={() => setIsActiveAddUserForm(!isActiveAddUserForm)}
         >
           Add User

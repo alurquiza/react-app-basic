@@ -2,9 +2,13 @@ import axios from 'axios';
 
 const apiToken = process.env.API_TOKEN_GOREST || 'cefc524e3720de07c7c21ef6c6c0f1304bdba5563c098a745b9505c5cc14ffe8';
 
-const getUsers = async () => {
+const getUsers = async (params = {}) => {
+  const baseUrl = `https://gorest.co.in/public/v2/users`;
+  const page = params.page ? params.page : 1;
+  const perPage = params.per_page ? params.per_page : 20;
+  const url = `${baseUrl}?page=${page}&per_page=${perPage}`;
   try {
-    const response = await axios.get("https://gorest.co.in/public/v2/users");
+    const response = await axios.get(url);
     return response.data;
   }
   catch (error) {
@@ -41,8 +45,7 @@ const getPosts = async (userId) => {
 
 const deleteUser = async (userId) => {
   try {
-    const response = await
-    axios.delete(`https://gorest.co.in/public/v2/users/${userId}?access-token=${apiToken}`);
+    await axios.delete(`https://gorest.co.in/public/v2/users/${userId}?access-token=${apiToken}`);
   }
   catch (error) {
     console.error('Error deleting user:',error);

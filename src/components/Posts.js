@@ -12,13 +12,15 @@ const Posts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       const newPosts = await getPosts(userId);
-      if(newPosts === null)
-        setMessage("Error fetching posts");
+
+      if(!newPosts)
+        setMessage("Error fetching posts, please try again later");
       else if(newPosts.length === 0)
         setMessage("This user has no posts")
-      else
+      else{
         setMessage("");
         setPosts(newPosts);
+      }
     }
 
     fetchPosts();

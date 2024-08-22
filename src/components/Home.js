@@ -25,13 +25,13 @@ const Home = () => {
 
   const addUser = async (newUser) => {
     const newUserWithId = await createUser(newUser);
-    setUsers([...users, newUserWithId]);
 
-    setNewUserCreated(true);
-    setTimeout(() => setNewUserCreated(false), 5000);
+    if (newUserWithId) {
+      setUsers([...users, newUserWithId]);
 
-    // setNewUserInfo(newUserWithId);
-    // handleShow();
+      setNewUserCreated(true);
+      setTimeout(() => setNewUserCreated(false), 5000);
+    }
   }
 
   const removeUser = async (userId) => {

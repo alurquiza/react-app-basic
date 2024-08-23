@@ -14,7 +14,7 @@ npm install
 npm run dev
 ```
 
-This will start the Vite development server and provide you with a local URL http://localhost:5173 where you can access your application.
+This will start the Vite development server and provide you with a local URL (usually http://localhost:5173) where you can access your application.
 
 ## Option 2
 
@@ -32,4 +32,4 @@ This will create an optimized production build of your application in the dist f
 npm run preview
 ```
 
-This will start a local server (http://localhost:4173) and serve the production build, allowing you to test the final output.
+This will start a local server (usually http://localhost:4173) and serve the production build, allowing you to test the final output.

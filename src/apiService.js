@@ -1,6 +1,6 @@
 import axios from 'axios';
+const apiToken = import.meta.env.API_TOKEN_GOREST
 
-const apiToken = process.env.API_TOKEN_GOREST || 'cefc524e3720de07c7c21ef6c6c0f1304bdba5563c098a745b9505c5cc14ffe8';
 const baseUrl = `https://gorest.co.in/public/v2/users`;
 
 const getUsers = async (params = {}) => {
@@ -13,7 +13,7 @@ const getUsers = async (params = {}) => {
   }
   catch (error) {
     console.error('Error fetching users:', error);
-    alert('Error fetching users: ' + error.message);
+    // alert('Error fetching users: ' + error.message);
   }
 }
 
@@ -38,7 +38,7 @@ const getPosts = async (userId) => {
   }
   catch (error) {
     console.error('Error fetching posts:',error);
-    alert('Error fetching posts: ' + error.message);
+    // alert('Error fetching posts: ' + error.message);
   }
 }
 

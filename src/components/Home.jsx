@@ -57,7 +57,7 @@ const Home = () => {
         <>
           <ListGroup>
             {users.map((user) => (
-              <ListGroupItem key={user.id}>Loading users...
+              <ListGroupItem key={user.id}>
                 <div className="d-flex justify-content-between align-items-center">
                   <Link to={`/posts/${user.id}`}>
                     {user.name}

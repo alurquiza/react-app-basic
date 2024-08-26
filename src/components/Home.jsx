@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Button, ListGroup, ListGroupItem, Container } from 'react-bootstrap';
 
 import { getUsers, createUser, deleteUser } from "../apiService";
 import AddUserForm from "./AddUserForm";
@@ -49,7 +49,7 @@ const Home = () => {
   }
 
   return (
-    <div className="mx-4">
+    <Container className="mt-4">
       <h3 className="mt-2">Users: page {page}</h3>
       {message !== "" ? (
         <ListGroupItem> {message} </ListGroupItem>
@@ -106,7 +106,7 @@ const Home = () => {
           setShow={setNewUserCreated}
           newUserInfo={users[users.length - 1]}
         />}
-    </div>
+    </Container>
   )
 }
 

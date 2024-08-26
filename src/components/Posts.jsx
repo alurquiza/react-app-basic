@@ -35,14 +35,12 @@ const Posts = () => {
       <ListGroup className="mt-2">
         {message === ""
           ? posts.map(post => (
-            <ListGroup.Item key={post.id}>
-              <Card className="mb-2">
-                <Card.Body>
-                  <Card.Title>{post.name}</Card.Title>
-                  <Card.Text>{post.body}</Card.Text>
-                </Card.Body>
-              </Card>
-            </ListGroup.Item>
+            <Card className="mb-2" key={post.id}>
+              <Card.Body>
+                <Card.Title>{post.name}</Card.Title>
+                <Card.Text>{post.body}</Card.Text>
+              </Card.Body>
+            </Card>
           ))
           : <ListGroup.Item>{message}</ListGroup.Item>}
       </ListGroup>
